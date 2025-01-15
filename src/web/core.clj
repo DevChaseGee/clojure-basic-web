@@ -33,6 +33,36 @@
 </html>
 ")
 
+(def dogsHTML "
+<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Full-Screen Cat Image</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .full-screen-image {
+            background-image: url('https://vetmed.tamu.edu/news/wp-content/uploads/sites/9/2023/05/AdobeStock_472713009.jpeg');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class=\"full-screen-image\"></div>
+</body>
+</html>
+")
+
 (def homeHTML "
 <!DOCTYPE html>
 <html lang=\"en\">
@@ -45,6 +75,8 @@
     <div>
         <h1>Welcome to the home page! Thanks for your visit!</h1>
         <a href=\"/cats\">Click here to see a full-screen cat image</a>
+        <br>
+        <a href=\"/dogs\">Click here to see a full-screen dog image</a>
     </div>
 </body>
 </html>
@@ -60,10 +92,16 @@
    :headers {"Content-Type" "text/html"}
    :body catsHTML})
 
+(defn dogs-handler [req]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body dogsHTML})
+
 (def app
   (routes
    (GET "/" [] handler)
-   (GET "/cats" [] cats-handler)))
+   (GET "/cats" [] cats-handler)
+   (GET "/dogs" [] dogs-handler)))
 
 (def server-instance (atom nil))
 
